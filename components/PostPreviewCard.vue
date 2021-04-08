@@ -1,17 +1,23 @@
 <template>
-  <nuxt-link :to="`/posts/${1}`" class="post-preview">
+  <nuxt-link :to="`/posts/${post.id}`" class="post-preview">
     <div>
       <div
         class="post-thumbnail"
-        style="background-image: url('https://res.cloudinary.com/people-matters/image/upload/q_auto,f_auto/v1578710070/1578710068.jpg')"
+        :style="{ backgroundImage: `url('${post.thumbnail}')` }"
       ></div>
       <div class="post-content">
-        <div class="heading-1 bold">Post Title</div>
-        <div>Preview Text</div>
+        <div class="heading-1 bold">{{ post.title }}</div>
+        <div>{{ post.previewText }}</div>
       </div>
     </div>
   </nuxt-link>
 </template>
+
+<script>
+export default {
+  props: ["post"]
+};
+</script>
 
 <style scoped>
 .post-preview {

@@ -16,6 +16,7 @@
 import PostList from "@/components/posts/PostList.vue";
 
 export default {
+  layout: "admin",
   components: {
     PostList
   }

@@ -1,6 +1,11 @@
 <template>
   <div class="post-list">
-    <PostPreviewCard v-for="(post, index) in posts" :key="index" :post="post" />
+    <PostPreviewCard
+      v-for="(post, index) in posts"
+      :key="index"
+      :post="post"
+      :is-admin="isAdmin"
+    />
   </div>
 </template>
 
@@ -8,6 +13,12 @@
 import PostPreviewCard from "@/components/posts/PostPreviewCard.vue";
 
 export default {
+  props: {
+    isAdmin: {
+      type: Boolean,
+      default: false
+    }
+  },
   data() {
     return {
       posts: [

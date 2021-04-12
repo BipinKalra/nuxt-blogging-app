@@ -1,5 +1,5 @@
 <template>
-  <nuxt-link :to="`/posts/${post.id}`" class="post-preview">
+  <nuxt-link :to="postLink" class="post-preview">
     <div>
       <div
         class="post-thumbnail"
@@ -15,7 +15,21 @@
 
 <script>
 export default {
-  props: ["post"]
+  props: {
+    post: {
+      type: Object,
+      required: true
+    },
+    isAdmin: {
+      type: Boolean,
+      required: true
+    }
+  },
+  computed: {
+    postLink() {
+      return this.isAdmin ? "/admin/" + this.post.id : "/posts/" + this.post.id;
+    }
+  }
 };
 </script>
 

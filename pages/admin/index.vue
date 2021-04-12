@@ -1,11 +1,13 @@
 <template>
   <div class="admin-page">
     <div class="new-post">
-      <button class="button-primary">Create Post</button>
+      <button class="button-primary" @click="$router.push('/admin/new-post')">
+        Create Post
+      </button>
     </div>
     <div class="existing-posts">
       <div class="heading-1 bold">Existing Posts</div>
-      <PostList />
+      <PostList :isAdmin="true" />
     </div>
   </div>
 </template>

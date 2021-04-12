@@ -26,3 +26,16 @@ export default {
   }
 };
 </script>
+
+<style scoped>
+.edit-post-form {
+  width: 90%;
+  margin: 20px auto;
+}
+
+@media (min-width: 768px) {
+  .edit-post-form {
+    width: 500px;
+  }
+}
+</style>

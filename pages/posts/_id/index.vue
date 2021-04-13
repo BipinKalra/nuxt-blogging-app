@@ -1,12 +1,12 @@
 <template>
   <div class="single-post-page">
     <div class="post">
-      <div class="heading-1 bold post-title">Title</div>
+      <div class="heading-1 bold post-title">{{ post.title }}</div>
       <div class="post-details">
-        <div class="post-detail">Last updated on</div>
-        <div class="post-detail">Written By</div>
+        <div class="post-detail">Last updated on {{ post.updatedDate }}</div>
+        <div class="post-detail">Written By {{ post.author }}</div>
       </div>
-      <div>Post Content</div>
+      <div>{{ post.content }}</div>
     </div>
     <div class="post-feedback">
       <div>
@@ -16,6 +16,29 @@
     </div>
   </div>
 </template>
+
+<script>
+export default {
+  asyncData(context, callback) {
+    setTimeout(() => {
+      callback(null, {
+        post: {
+          id: 1,
+          author: "Bipin",
+          updatedDate: new Date().toLocaleDateString("en-US"),
+          thumbnail:
+            "https://res.cloudinary.com/people-matters/image/upload/q_auto,f_auto/v1578710070/1578710068.jpg",
+          // This context object allows us to access the current context ie. various pieces of information which isn't available yet, otherwise
+          title: "Fantastic Post (ID: " + context.params.id + ")",
+          previewText: "This is the preview for a fantastic post!",
+          content:
+            "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum."
+        }
+      });
+    }, 1000);
+  }
+};
+</script>
 
 <style scoped>
 .single-post-page {

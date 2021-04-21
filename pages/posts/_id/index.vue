@@ -4,7 +4,8 @@
       <div class="heading-1 bold post-title">{{ post.title }}</div>
       <div class="post-details">
         <div class="post-detail">
-          Last updated on <strong>{{ post.updatedDate }}</strong>
+          <!-- This | symbol after updatedDate below binds the date filter to this value where date filter is globally defined in plugins -->
+          Last updated on <strong>{{ post.updatedDate | date }}</strong>
         </div>
         <div class="post-detail">
           Written By <strong>{{ post.author }}</strong>

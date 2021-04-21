@@ -35,7 +35,7 @@ export default {
   css: ["~assets/styles/main.css"],
 
   // Plugins to run before rendering page (https://go.nuxtjs.dev/config-plugins)
-  plugins: ["~plugins/core-components.js"],
+  plugins: ["~plugins/core-components.js", "~plugins/date-filter.js"],
 
   // Auto import components (https://go.nuxtjs.dev/config-components)
   components: true,
@@ -44,7 +44,15 @@ export default {
   buildModules: [],
 
   // Modules (https://go.nuxtjs.dev/config-modules)
-  modules: [],
+  modules: ["@nuxtjs/axios"],
+
+  // When @nuxtjs/axios module is installed, the object below can be used to configure axios requests
+  axios: {
+    // This baseURL config can thus now be done in 2 ways!
+    baseURL:
+      process.env.BASE_URL ||
+      "https://nuxt-blog-26316-default-rtdb.europe-west1.firebasedatabase.app"
+  },
 
   // Build Configuration (https://go.nuxtjs.dev/config-build)
   build: {},

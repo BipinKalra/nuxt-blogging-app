@@ -9,6 +9,15 @@ const createStore = () => {
     mutations: {
       setPosts(state, newPosts) {
         state.posts = newPosts;
+      },
+      addPost(state, post) {
+        state.posts.push(post);
+      },
+      editPost(state, editedPost) {
+        const postIndex = state.posts.findIndex(
+          post => post.id === editedPost.id
+        );
+        state.posts[postIndex] = editedPost;
       }
     },
     actions: {
@@ -56,6 +65,24 @@ const createStore = () => {
       },
       setPosts(vuexContext, posts) {
         vuexContext.commit("setPosts", posts);
+      },
+      addPost(vuexContext, post) {
+        const createdPost = {
+          ...post,
+          updatedDate: new Date()
+        };
+        return axios
+          .post(
+            "https://nuxt-blog-26316-default-rtdb.europe-west1.firebasedatabase.app/posts.json",
+            createdPost
+          )
+          .then(result => {
+            vuexContext.commit("addPost", {
+              ...createdPost,
+              id: result.data.name
+            });
+          })
+          .catch(error => console.log(error));
       }
     },
     getters: {

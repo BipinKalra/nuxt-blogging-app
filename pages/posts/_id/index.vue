@@ -29,7 +29,7 @@ export default {
     return axios
       .get(
         //.json needs to be added in the end to get json data from firebase
-        `https://nuxt-blog-26316-default-rtdb.europe-west1.firebasedatabase.app/posts/${context.params.id}.json`
+        `${process.env.baseURL}/posts/${context.params.id}.json`
       )
       .then(response => {
         return {

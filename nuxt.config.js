@@ -1,5 +1,6 @@
 export default {
   // Global page headers (https://go.nuxtjs.dev/config-head)
+  mode: "universal",
   head: {
     title: "my-blog",
     meta: [
@@ -18,6 +19,18 @@ export default {
     ]
   },
 
+  loading: {
+    color: "#f26a3e",
+    height: "4px",
+    duration: 5000
+  },
+
+  // Works in case of a SPA
+  loadingIndicator: {
+    name: "circle",
+    color: "#f26a3e"
+  },
+
   // Global CSS (https://go.nuxtjs.dev/config-css)
   css: [],
 
@@ -34,5 +47,11 @@ export default {
   modules: [],
 
   // Build Configuration (https://go.nuxtjs.dev/config-build)
-  build: {}
+  build: {},
+
+  env: {
+    baseURL:
+      process.env.BASE_URL ||
+      "https://nuxt-blog-26316-default-rtdb.europe-west1.firebasedatabase.app"
+  }
 };

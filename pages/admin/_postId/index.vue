@@ -7,7 +7,6 @@
 </template>
 
 <script>
-import axios from "axios";
 import AdminPostForm from "@/components/admin/AdminPostForm.vue";
 
 export default {
@@ -16,14 +15,14 @@ export default {
     AdminPostForm
   },
   asyncData(context) {
-    return axios
-      .get(
+    return context.app.$axios
+      .$get(
         //.json needs to be added in the end to get json data from firebase
-        `${process.env.baseURL}/posts/${context.params.postId}.json`
+        `/posts/${context.params.postId}.json`
       )
       .then(response => {
         return {
-          post: { ...response.data, id: context.params.postId }
+          post: { ...response, id: context.params.postId }
         };
       })
       .catch(error => console.log(error));

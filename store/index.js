@@ -1,5 +1,4 @@
 import Vuex from "vuex";
-import axios from "axios";
 
 const createStore = () => {
   return new Vuex.Store({
@@ -50,12 +49,26 @@ const createStore = () => {
         // });
 
         // Code above was written just to emulate the behaviour of a fetch request
-        return axios
-          .get(`${process.env.baseURL}/posts.json`)
+
+        // This code can be used while using normal axios import
+        // return axios
+        //   .get(`${process.env.baseURL}/posts.json`)
+        //   .then(response => {
+        //     const postsArray = [];
+        //     for (const key in response.data) {
+        //       postsArray.push({ ...response.data[key], id: key });
+        //     }
+        //     vuexContext.commit("setPosts", postsArray);
+        //   })
+        //   .catch(error => console.log(error));
+
+        // This code would replace the code above in case we use @nuxtjs/axios module which is globally available in the application
+        return context.app.$axios
+          .$get(`/posts.json`)
           .then(response => {
             const postsArray = [];
-            for (const key in response.data) {
-              postsArray.push({ ...response.data[key], id: key });
+            for (let key in response) {
+              postsArray.push({ ...response[key], id: key });
             }
             vuexContext.commit("setPosts", postsArray);
           })
@@ -69,19 +82,19 @@ const createStore = () => {
           ...post,
           updatedDate: new Date()
         };
-        return axios
-          .post(`${process.env.baseURL}/posts.json`, createdPost)
+        return this.$axios
+          .$post(`/posts.json`, createdPost)
           .then(result => {
             vuexContext.commit("addPost", {
               ...createdPost,
-              id: result.data.name
+              id: result.name
             });
           })
           .catch(error => console.log(error));
       },
       async editPost(vuexContext, post) {
-        return axios
-          .put(`${process.env.baseURL}/posts/${post.id}.json`, post)
+        return this.$axios
+          .$put(`/posts/${post.id}.json`, post)
           .then(response => {
             vuexContext.commit("editPost", post);
           })

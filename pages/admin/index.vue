@@ -13,13 +13,8 @@
 </template>
 
 <script>
-import PostList from "@/components/posts/PostList.vue";
-
 export default {
   layout: "admin",
-  components: {
-    PostList
-  },
   computed: {
     posts() {
       // This needs to be created to fetch the posts from the vuex store to be used wihtin the markup

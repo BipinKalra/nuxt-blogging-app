@@ -23,18 +23,16 @@
 </template>
 
 <script>
-import axios from "axios";
-
 export default {
   asyncData(context) {
-    return axios
-      .get(
+    return context.app.$axios
+      .$get(
         //.json needs to be added in the end to get json data from firebase
-        `${process.env.baseURL}/posts/${context.params.id}.json`
+        `/posts/${context.params.id}.json`
       )
       .then(response => {
         return {
-          post: response.data
+          post: response
         };
       })
       .catch(error => console.log(error));

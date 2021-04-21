@@ -23,22 +23,16 @@ export default {
       )
       .then(response => {
         return {
-          post: response.data
+          post: { ...response.data, id: context.params.postId }
         };
       })
       .catch(error => console.log(error));
   },
   methods: {
     onEditPost(postData) {
-      axios
-        .put(
-          `https://nuxt-blog-26316-default-rtdb.europe-west1.firebasedatabase.app/posts/${this.$route.params.postId}.json`,
-          postData
-        )
-        .then(response => {
-          this.$router.replace(`/admin`);
-        })
-        .catch(error => console.log(error));
+      this.$store.dispatch("editPost", postData).then(() => {
+        this.$router.replace(`/admin`);
+      });
     }
   }
 };

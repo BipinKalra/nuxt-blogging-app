@@ -66,7 +66,7 @@ const createStore = () => {
       setPosts(vuexContext, posts) {
         vuexContext.commit("setPosts", posts);
       },
-      addPost(vuexContext, post) {
+      async addPost(vuexContext, post) {
         const createdPost = {
           ...post,
           updatedDate: new Date()
@@ -81,6 +81,17 @@ const createStore = () => {
               ...createdPost,
               id: result.data.name
             });
+          })
+          .catch(error => console.log(error));
+      },
+      async editPost(vuexContext, post) {
+        return axios
+          .put(
+            `https://nuxt-blog-26316-default-rtdb.europe-west1.firebasedatabase.app/posts/${post.id}.json`,
+            post
+          )
+          .then(response => {
+            vuexContext.commit("editPost", post);
           })
           .catch(error => console.log(error));
       }

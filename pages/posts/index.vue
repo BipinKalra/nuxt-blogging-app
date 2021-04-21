@@ -5,12 +5,7 @@
 </template>
 
 <script>
-import PostList from "@/components/posts/PostList.vue";
-
 export default {
-  components: {
-    PostList
-  },
   // asyncData can be used instead of fetch if we are using the created hook to fetch data
   // async fetch(context) {
   //   // New way of doing things - Promise based approach. Old approach in the index page for the website

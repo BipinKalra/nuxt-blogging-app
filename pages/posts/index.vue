@@ -49,6 +49,10 @@ export default {
         context.error(e);
       });
   }
+  // Created method can be used alongside of asyncdata but this can be eliminated by using the fetch hook
+  // created() {
+  //   this.$store.dispatch("setPosts", this.posts);
+  // }
 };
 </script>
 

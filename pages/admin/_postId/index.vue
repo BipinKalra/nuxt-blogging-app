@@ -1,12 +1,13 @@
 <template>
   <div class="admin-edit-post-page">
     <div class="edit-post-form">
-      <AdminPostForm :post="loadedPost" />
+      <AdminPostForm :post="post" @submitPost="onEditPost" />
     </div>
   </div>
 </template>
 
 <script>
+import axios from "axios";
 import AdminPostForm from "@/components/admin/AdminPostForm.vue";
 
 export default {
@@ -14,16 +15,31 @@ export default {
   components: {
     AdminPostForm
   },
-  data() {
-    return {
-      loadedPost: {
-        author: "Bipin",
-        title: "Woahhh! What a post!",
-        thumbnailLink:
-          "https://res.cloudinary.com/people-matters/image/upload/q_auto,f_auto/v1578710070/1578710068.jpg",
-        content: `I am kinda new to Vue but there is a problem I encountered with this solution. When I add @click="e => e.target.classList.toggle('active')" on vue-bootstrap card parent element what happens is that the whole card doesn't get the CSS toggle, instead the class applies on parts of card you click and you can toggle multiple in a single card.`
-      }
-    };
+  asyncData(context) {
+    return axios
+      .get(
+        //.json needs to be added in the end to get json data from firebase
+        `https://nuxt-blog-26316-default-rtdb.europe-west1.firebasedatabase.app/posts/${context.params.postId}.json`
+      )
+      .then(response => {
+        return {
+          post: response.data
+        };
+      })
+      .catch(error => console.log(error));
+  },
+  methods: {
+    onEditPost(postData) {
+      axios
+        .put(
+          `https://nuxt-blog-26316-default-rtdb.europe-west1.firebasedatabase.app/posts/${this.$route.params.postId}.json`,
+          postData
+        )
+        .then(response => console.log(response))
+        .catch(error => console.log(error));
+
+      this.$router.replace(`/admin`);
+    }
   }
 };
 </script>

@@ -22,10 +22,10 @@ export default {
           "https://nuxt-blog-26316-default-rtdb.europe-west1.firebasedatabase.app/posts.json",
           { ...postData, updatedDate: new Date() }
         )
-        .then(result => console.log(result))
+        .then(result => {
+          this.$router.replace(`/admin`);
+        })
         .catch(error => console.log(error));
-
-      this.$router.replace(`/admin`);
     }
   }
 };

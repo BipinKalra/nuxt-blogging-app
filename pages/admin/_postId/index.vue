@@ -35,10 +35,10 @@ export default {
           `https://nuxt-blog-26316-default-rtdb.europe-west1.firebasedatabase.app/posts/${this.$route.params.postId}.json`,
           postData
         )
-        .then(response => console.log(response))
+        .then(response => {
+          this.$router.replace(`/admin`);
+        })
         .catch(error => console.log(error));
-
-      this.$router.replace(`/admin`);
     }
   }
 };
